@@ -101,7 +101,7 @@ end
 A type of JSON number tokens.
 """
 struct NumberToken <: AtomicToken
-    value::String
+    value::Real
 end
 
 show(io::IO, ::BeginObjectToken) = print(io, "+OB")

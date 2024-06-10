@@ -40,7 +40,7 @@ end
 parsenull(::NullToken) = JSONNull()
 parseboolean(token::BooleanToken) = JSONBoolean(token.value)
 parsestring(token::StringToken) = JSONString(token.value[begin+1:end-1])
-parsenumber(token::NumberToken) = JSONNumber(parse(Float64, token.value))
+parsenumber(token::NumberToken) = JSONNumber(token.value)
 
 const eoftokenexception = ErrorException("unexpected end of token")
 const unexpectedtokenexception = ErrorException("unexpected token")

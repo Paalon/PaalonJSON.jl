@@ -13,7 +13,7 @@ const JSON = PaalonJSON
     @test string(JSON.BooleanToken(true)) == "true"
     @test string(JSON.BooleanToken(false)) == "false"
     @test string(JSON.StringToken("hello")) == "\"hello\""
-    @test string(JSON.NumberToken("3.14")) == "3.14"
+    @test string(JSON.NumberToken(3.14)) == 3.14
 end
 
 @testset "lex" begin
@@ -21,6 +21,7 @@ end
     @test JSON.lex("true") == [JSON.BooleanToken(true)]
     @test JSON.lex("false") == [JSON.BooleanToken(false)]
     @test JSON.lex("\"hello\"") == [JSON.StringToken("\"hello\"")]
+    @test JSON.lex("42") == [JSON.NumberToken(42)]
     @test JSON.lex("[null]") == [JSON.BeginArrayToken(), JSON.NullToken(), JSON.EndArrayToken()]
     @test JSON.lex("[null,null]") == [JSON.BeginArrayToken(), JSON.NullToken(), JSON.ValueSeparatorToken(), JSON.NullToken(), JSON.EndArrayToken()]
     @test JSON.lex("""{"hello":"world"}""") == [JSON.BeginObjectToken(), JSON.StringToken("\"hello\""), JSON.NameSeparatorToken(), JSON.StringToken("\"world\""), JSON.EndObjectToken()]
@@ -31,6 +32,7 @@ end
     @test JSON.parse("true") === true
     @test JSON.parse("false") === false
     @test JSON.parse("\"hello\"") == "hello"
+    @test JSON.parse("42") == 42
     @test JSON.parse("[]") == []
     @test JSON.parse("[null]") == [nothing]
     @test JSON.parse("[null,null]") == [nothing, nothing]
@@ -45,6 +47,9 @@ end
 const filenames = [
     "example1"
     "example2"
+    "example3"
+    "example4"
+    "example5"
 ]
 
 @testset "parse 2" begin
