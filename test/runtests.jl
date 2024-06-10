@@ -42,23 +42,18 @@ end
     @test JSON.parse("""{"a":"apple","b":"banana"}""") == Dict{String, Any}("a" => "apple", "b" => "banana") 
 end
 
+const filenames = [
+    "example1"
+    "example2"
+]
+
 @testset "parse 2" begin
-    open("example1.json", "r") do file
-        data = JSON.parse(file)
-        @test data == Dict{String, Any}(
-            "Image" => Dict{String, Any}(
-                "Width" => "800",
-                "Height" => "600",
-                "Title" => "View from 15th Floor",
-                "Thumbnail" => Dict{String, Any}(
-                    "Url" => "http://www.example.com/image/481989943",
-                    "Height" => "125",
-                    "Width" => "100",
-                ),
-                "Animated" => false,
-                "IDs" => Any["116", "943", "234", "38793"],
-            ),
-        )
+    for filename in filenames
+        open("data/$filename.json", "r") do json
+            data_jl = include("data/$filename.jl")     
+            data_json = JSON.parse(json)
+            @test data_json == data_jl
+        end
     end
 end
 
