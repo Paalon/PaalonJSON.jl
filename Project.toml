@@ -1,7 +1,7 @@
 name = "PaalonJSON"
 uuid = "93169e74-b428-45ac-8c94-b8714ebe5275"
 authors = ["Koki Fushimi <paalon1936@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [compat]
 julia = "^1.1"
